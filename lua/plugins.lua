@@ -20,5 +20,29 @@ require("lazy").setup({
             vim.cmd.colorscheme("kanagawa-wave")
         end,
     },
+    {
+        "nvim-treesitter/nvim-treesitter",
+        config = function()
+            require('nvim-treesitter.configs').setup({
+                ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
+
+                sync_install = false,
+
+                auto_install = true,
+
+                highlight = {
+                    enable = true,
+
+                },
+            })
+        end,
+    },
+    {
+        "APZelos/blamer.nvim",
+        config = function()
+            vim.g.blamer_enabled = true
+            vim.g.blamer_delay = 250
+        end,
+    },
 })
 
