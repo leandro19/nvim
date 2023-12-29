@@ -188,58 +188,70 @@ require("lazy").setup({
 
         config = function()
             require('nvim-treesitter.configs').setup({
-                ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
+                -- Add languages to be installed here that you want installed for treesitter
+                ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
 
-                sync_install = false,
+                -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
+                auto_install = false,
 
-                auto_install = true,
-
-                highlight = {
-                    enable = true,
-
-                },
-
+                highlight = { enable = true },
+                indent = { enable = true },
                 incremental_selection = {
                     enable = true,
                     keymaps = {
-                        init_selection = "<Leader>ss", -- set to `false` to disable one of the mappings
-                        node_incremental = "<Leader>si",
-                        scope_incremental = "<Leader>sc",
-                        node_decremental = "<Leader>sd",
+                        init_selection = '<c-space>',
+                        node_incremental = '<c-space>',
+                        scope_incremental = '<c-s>',
+                        node_decremental = '<M-space>',
                     },
                 },
-
                 textobjects = {
                     select = {
                         enable = true,
-
-                        -- Automatically jump forward to textobj, similar to targets.vim
-                        lookahead = true,
-
+                        lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
                         keymaps = {
                             -- You can use the capture groups defined in textobjects.scm
-                            ["af"] = "@function.outer",
-                            ["if"] = "@function.inner",
-                            ["ac"] = "@class.outer",
-                            ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-                            -- You can also use captures from other query groups like `locals.scm`
-                            ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
+                            ['aa'] = '@parameter.outer',
+                            ['ia'] = '@parameter.inner',
+                            ['af'] = '@function.outer',
+                            ['if'] = '@function.inner',
+                            ['ac'] = '@class.outer',
+                            ['ic'] = '@class.inner',
                         },
-                        selection_modes = {
-                            ['@parameter.outer'] = 'v', -- charwise
-                            ['@function.outer'] = 'v', -- linewise
-                            ['@class.outer'] = '<c-v>', -- blockwise
+                    },
+                    move = {
+                        enable = true,
+                        set_jumps = true, -- whether to set jumps in the jumplist
+                        goto_next_start = {
+                            [']m'] = '@function.outer',
+                            [']]'] = '@class.outer',
                         },
-                        -- If you set this to `true` (default is `false`) then any textobject is
-                        -- extended to include preceding or succeeding whitespace. Succeeding
-                        -- whitespace has priority in order to act similarly to eg the built-in
-                        -- `ap`.
-                        include_surrounding_whitespace = true,
+                        goto_next_end = {
+                            [']M'] = '@function.outer',
+                            [']['] = '@class.outer',
+                        },
+                        goto_previous_start = {
+                            ['[m'] = '@function.outer',
+                            ['[['] = '@class.outer',
+                        },
+                        goto_previous_end = {
+                            ['[M'] = '@function.outer',
+                            ['[]'] = '@class.outer',
+                        },
+                    },
+                    swap = {
+                        enable = true,
+                        swap_next = {
+                            ['<leader>a'] = '@parameter.inner',
+                        },
+                        swap_previous = {
+                            ['<leader>A'] = '@parameter.inner',
+                        },
                     },
                 },
             })
         end,
-        build = 'TSUpdate',
+        build = ':TSUpdate',
     },
 })
 
