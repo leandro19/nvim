@@ -23,13 +23,6 @@ require("lazy").setup({
     'tpope/vim-sleuth',
 
     {
-        "rebelot/kanagawa.nvim",
-        config = function()
-            vim.cmd.colorscheme("kanagawa-wave")
-        end,
-    },
-
-    {
         -- LSP Configuration & Plugins
         'neovim/nvim-lspconfig',
         dependencies = {
@@ -141,6 +134,53 @@ require("lazy").setup({
     },
 
     {
+        "rebelot/kanagawa.nvim",
+        config = function()
+            vim.cmd.colorscheme("kanagawa-wave")
+        end,
+    },
+
+    {
+        -- Set lualine as statusline
+        'nvim-lualine/lualine.nvim',
+        opts = {
+            options = {
+                icons_enabled = false,
+                theme = 'kanagawa',
+                component_separators = '|',
+                section_separators = '',
+            },
+        },
+    },
+
+    {
+        -- Add indentation guides even on blank lines
+        'lukas-reineke/indent-blankline.nvim',
+        main = 'ibl',
+        opts = {},
+    },
+
+    -- "gc" to comment visual regions/lines
+    { 'numToStr/Comment.nvim', opts = {} },
+
+    -- Fuzzy Finder (files, lsp, etc)
+    {
+        'nvim-telescope/telescope.nvim',
+        branch = '0.1.x',
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+            {
+                'nvim-telescope/telescope-fzf-native.nvim',
+                build = 'make',
+                cond = function()
+                    return vim.fn.executable 'make' == 1
+                end,
+            },
+        },
+    },
+
+
+    {
         "nvim-treesitter/nvim-treesitter",
         config = function()
             require('nvim-treesitter.configs').setup({
@@ -197,6 +237,5 @@ require("lazy").setup({
             })
         end,
     },
-    "nvim-treesitter/nvim-treesitter-textobjects",
 })
 
