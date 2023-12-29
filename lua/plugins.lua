@@ -179,9 +179,13 @@ require("lazy").setup({
         },
     },
 
-
     {
         "nvim-treesitter/nvim-treesitter",
+
+        dependencies = {
+            'nvim-treesitter/nvim-treesitter-textobjects',
+        },
+
         config = function()
             require('nvim-treesitter.configs').setup({
                 ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
@@ -204,7 +208,6 @@ require("lazy").setup({
                         node_decremental = "<Leader>sd",
                     },
                 },
-
 
                 textobjects = {
                     select = {
@@ -236,6 +239,7 @@ require("lazy").setup({
                 },
             })
         end,
+        build = 'TSUpdate',
     },
 })
 
