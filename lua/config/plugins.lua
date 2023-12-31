@@ -2,14 +2,14 @@
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -31,7 +31,7 @@ require("lazy").setup({
             "williamboman/mason-lspconfig.nvim",
 
             -- Useful status updates for LSP
-            { "j-hui/fidget.nvim", opts = {} },
+            { "j-hui/fidget.nvim",       opts = {} },
 
             -- Additional lua configuration
             "folke/neodev.nvim",
@@ -69,7 +69,7 @@ require("lazy").setup({
     { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
 
     -- "gc" to comment visual regions/lines
-    { "numToStr/Comment.nvim", opts = {} },
+    { "numToStr/Comment.nvim",               opts = {} },
 
     -- Fuzzy Finder (files, lsp, etc)
     {
@@ -98,5 +98,7 @@ require("lazy").setup({
 
     -- Code context
     "nvim-treesitter/nvim-treesitter-context",
-})
 
+    -- Auto formatting (from kickstart.nvim)
+    require 'kickstart.plugins.autoformat',
+})
