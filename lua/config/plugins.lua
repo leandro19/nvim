@@ -101,4 +101,11 @@ require("lazy").setup({
 
     -- Auto formatting (from kickstart.nvim)
     require 'kickstart.plugins.autoformat',
+
+    -- Autopairs
+    {
+        "windwp/nvim-autopairs",
+        -- Optional dependency
+        dependencies = { 'hrsh7th/nvim-cmp' },
+    }
 })
